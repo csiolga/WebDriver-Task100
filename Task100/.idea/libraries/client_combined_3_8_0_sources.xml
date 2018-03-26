@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="client-combined-3.8.0-sources">
+    <CLASSES>
+      <root url="jar://C:/Selenium/client-combined-3.8.0-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="jar://C:/Selenium/client-combined-3.8.0-sources.jar!/" recursive="false" />
+  </library>
+</component>
