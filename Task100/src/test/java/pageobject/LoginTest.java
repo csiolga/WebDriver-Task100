@@ -5,8 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
+import testng.MailRuListener;
 
+@Listeners(MailRuListener.class)
 public class LoginTest {
     private static final String USERNAME = "seleniumtests10";
     private static final String PASSWORD = "060788avavav";
@@ -25,6 +31,9 @@ public class LoginTest {
         driver.close();
     }
 
+    @Features("Login")
+    @Description("Verify the ability to login")
+    @TestCaseId("Project-1")
     @Test
     public void login() {
         homePage = loginPage.login(USERNAME,PASSWORD);
@@ -33,6 +42,9 @@ public class LoginTest {
                 "Expected title is '" + homePage.getTitle() + "' but actual title is '" + driver.getTitle() + "'.");
     }
 
+    @Features("Login")
+    @Description("Verify the ability to logout")
+    @TestCaseId("Project-1")
     @Test
     public void logout() {
         homePage = loginPage.login(USERNAME,PASSWORD);
