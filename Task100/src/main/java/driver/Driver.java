@@ -1,11 +1,15 @@
 package driver;
 
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
 import java.util.concurrent.TimeUnit;
 
 public class Driver {
     private static final String URL = "https://mail.ru/";
+    private Capabilities cap;
     private static Driver instance;
     private WebDriver driver;
 
@@ -37,5 +41,14 @@ public class Driver {
 
     public void close() {
         driver.close();
+    }
+
+    public String getInfo() {
+        cap = ((RemoteWebDriver) driver).getCapabilities();
+        String browserName = cap.getBrowserName().toLowerCase();
+        String platform = cap.getPlatform().toString();
+        String browserVersion = cap.getVersion().toString();
+
+        return "Browser: "  + browserName + "\nBrowser version: " + browserVersion + "\nPlatform: " + platform ;
     }
 }
