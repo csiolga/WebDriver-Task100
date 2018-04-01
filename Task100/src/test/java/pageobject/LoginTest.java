@@ -12,6 +12,8 @@ import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
 import testng.MailRuListener;
 
+import java.net.MalformedURLException;
+
 @Listeners(MailRuListener.class)
 public class LoginTest {
     private static final String USERNAME = "seleniumtests10";
@@ -21,7 +23,7 @@ public class LoginTest {
     private HomePage homePage;
 
     @BeforeMethod
-    public void setup() {
+    public void setup() throws MalformedURLException {
         driver = Driver.getInstance().open();
         loginPage = new LoginPage();
     }

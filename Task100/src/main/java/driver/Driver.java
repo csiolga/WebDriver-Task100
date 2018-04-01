@@ -2,15 +2,16 @@ package driver;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class Driver {
-    private static final String URL = "https://mail.ru/";
-    private Capabilities cap;
+    private static final String DESTINATION_URL = "https://mail.ru/";
     private static Driver instance;
+    private Capabilities cap =  DesiredCapabilities.chrome();
     private WebDriver driver;
 
     private Driver() {}
@@ -30,12 +31,11 @@ public class Driver {
         return driver;
     }
 
-    public WebDriver open() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        driver = new ChromeDriver();
+    public WebDriver open() throws MalformedURLException {
+        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), cap);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get(URL);
+        driver.get(DESTINATION_URL);
         return driver;
     }
 
