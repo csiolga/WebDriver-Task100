@@ -23,8 +23,8 @@ public class LoginTest {
     private HomePage homePage;
 
     @BeforeMethod
-    public void setup() throws MalformedURLException {
-        driver = Driver.getInstance().open();
+    public void setup() throws MalformedURLException, Exception {
+        driver = Driver.getInstance().open("edge", "16", "Windows 10");
         loginPage = new LoginPage();
     }
 

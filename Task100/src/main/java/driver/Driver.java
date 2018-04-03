@@ -9,9 +9,13 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class Driver {
-    private static final String DESTINATION_URL = "https://mail.ru/";
+    private static final String USERNAME = "olgastarkova";
+    private static final String ACCESS_KEY = "06c917f0-296f-4837-9e77-aac8a4289310";
+    public static final String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:443/wd/hub";
+    private static final String DESTINATION_URL = "https://mail.ru/"    ;
     private static Driver instance;
-    private Capabilities cap =  DesiredCapabilities.chrome();
+    private Capabilities cap;
+    private DesiredCapabilities desiredCaps;
     private WebDriver driver;
 
     private Driver() {}
@@ -31,8 +35,23 @@ public class Driver {
         return driver;
     }
 
-    public WebDriver open() throws MalformedURLException {
-        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), cap);
+    public WebDriver open(String browserName, String browserVersion, String platform) throws MalformedURLException, Exception {
+        if (browserName.equalsIgnoreCase("edge")) {
+            desiredCaps = DesiredCapabilities.edge();
+
+        } else if (browserName.equalsIgnoreCase("firefox")) {
+            desiredCaps = DesiredCapabilities.firefox();
+
+        } else if (browserName.equalsIgnoreCase("chrome")) {
+            desiredCaps = DesiredCapabilities.chrome();
+
+        } else {
+            throw new Exception("Incorrect browser name");
+        }
+
+        desiredCaps.setCapability("version", browserVersion);
+        desiredCaps.setCapability("platform", platform);
+        driver = new RemoteWebDriver(new URL(URL), desiredCaps);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get(DESTINATION_URL);
